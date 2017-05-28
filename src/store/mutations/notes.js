@@ -1,5 +1,6 @@
-import Vue      from 'vue'
-import util     from '../../util'
+import Vue            from 'vue'
+import util           from '@/util'
+import { createNote } from '@/factories/note'
 
 export default {
   NOTE_SET_TEXT (state, {id, text}) {
@@ -20,6 +21,14 @@ export default {
     }
   },
 
+  NOTE_SET_MARKS (state, {id, marks}) {
+    var note = util.one(state.notes, id)
+
+    if (note) {
+      Vue.set(note, 'marks', marks)
+    }
+  },
+
   NOTE_TOGGLE_STAR (state, id) {
     var note = util.one(state.notes, id)
 
@@ -29,17 +38,8 @@ export default {
   },
 
   NOTE_CREATE (state) {
-    var note = {
-      id: util.ID(),
-      title: '',
-      text: '',
-      createdAt: Date.now(),
-      modifiedAt: Date.now()
-    }
-
+    var note = createNote()
     state.notes.push(note)
-    // TODO: somehow call another mutation SET_SELECTED_NOTE
-    // mb it shoud be separated into action ???
     Vue.set(state, 'selectedNoteId', note.id)
   },
 
@@ -48,9 +48,7 @@ export default {
     let nextId = null
     let cleaned = []
 
-    for (var i = 0; i < notes.length; i++) {
-      let note = notes[i]
-
+    notes.forEach((note, i) => {
       if (note.id === selectedNoteId) {
         if (notes.length > 1) {
           nextId = notes[i + (i === 0 ? 1 : -1)].id
@@ -58,11 +56,11 @@ export default {
       } else {
         cleaned.push(note)
       }
-    }
+    })
 
     Vue.set(state, 'notes', cleaned)
+    Vue.set(state, 'selectedNoteId', nextId)
     // TODO: somehow call another mutation SET_SELECTED_NOTE
     // mb it shoud be separated into action ???
-    Vue.set(state, 'selectedNoteId', nextId)
   }
 }

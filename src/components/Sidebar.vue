@@ -68,13 +68,15 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   .sidebar {
     position: fixed;
     width: 210px;
     height: 100vh;
     border-right: 1px solid #eee;
-  //  z-index: 1;
+    background: white;
+
+    z-index: 20;
   }
 
   .add-note-button {

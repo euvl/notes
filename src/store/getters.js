@@ -6,7 +6,7 @@ export default {
   },
 
   selectedIndex (state) {
-    const {notes, selectedNoteId} = state
+    const { notes, selectedNoteId } = state
 
     for (var i = 0; i < notes.length; i++) {
       if (notes[i].id === selectedNoteId) {

@@ -1,90 +1,51 @@
 <template>
   <div class="editor">
     <toolbar />
-    <div class="editor-container" v-if="selected">
-      <input class="title"
-             type="text"
-             v-model="title"
-             @input="inputTitle"
-             @blur="unfocus"
-             placeholder="Title...">
-      <div class="content editable" ref="content">
-        <text-editor :text="text" @change="inputText"/>
+    <div class="editor-container">
+      <editor-title />
+      <div class="content">
+        <editor-text @ready="ready"/>
       </div>
     </div>
   </div>
 </template>
 <script>
-import subs                     from '../modules/substitutes'
+// import { transformText }        from '../modules/transform'
 import { mapState, mapGetters } from 'vuex'
-import TextEditor               from './TextEditor'
 import Toolbar                  from './Toolbar'
+import EditorText               from './EditorText'
+import EditorTitle              from './EditorTitle'
 
 export default {
   name: 'Editor',
-  data () {
-    return {
-      title: '',
-      text: ''
-    }
-  },
   components: {
-    TextEditor,
-    Toolbar
-  },
-  watch: {
-    selectedNoteId: {
-      handler (id) {
-        this.$nextTick(() => {
-          if (id) {
-            this.text = this.selected.text
-            this.title = this.selected.title
-          } else {
-            this.text = ''
-            this.title = ''
-          }
-        })
-      },
-      immediate: true
-    }
+    Toolbar,
+    EditorText,
+    EditorTitle
   },
   methods: {
-    inputText (event) {
+    change (event) {
       if (this.selected && this.selected.text !== event.value) {
         this.$store.commit('NOTE_SET_TEXT', {
           id: this.selectedNoteId,
-          text: event.value
+          text: event.value || ''
         })
       }
-    },
 
-    inputTitle () {
-      if (this.selected && this.selected.title !== this.title) {
-        this.$store.commit('NOTE_SET_TITLE', {
-          id: this.selectedNoteId,
-          title: this.title
-        })
-      }
-    },
-
-    unfocus (event) {
-      let { title } = this
-
-      for (var i = 0; i < subs.length; i++) {
-        let sub = subs[i]
-
-        title = title.replace(sub.regexp, sub.fn)
-      }
-
-      this.title = title
-      this.$store.commit('NOTE_SET_TITLE', {
+      this.$store.commit('NOTE_SET_MARKS', {
         id: this.selectedNoteId,
-        title: this.title
+        marks: event.marks || []
       })
+    },
+
+    ready () {
+      if (this.notes.length > 0) {
+        this.$store.commit('SET_SELECTED_NOTE', this.notes[0].id)
+      }
     }
   },
   computed: {
-    ...mapState(['notes', 'selectedNoteId']),
+    ...mapState(['notes', 'selectedNoteId', 'notes']),
     ...mapGetters(['selected'])
   }
 }

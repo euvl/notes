@@ -3,11 +3,11 @@ import _ from 'lodash'
 const debug = false
 const storage = debug ? sessionStorage : localStorage
 
-const cacheNotes = (notes) => {
+const updateNow = (notes) => {
   storage.setItem('notes', JSON.stringify(notes))
 }
 
-const update = _.debounce(cacheNotes, 1000)
+const update = _.debounce(updateNow, 1000)
 
 const restore = () => {
   return JSON.parse(storage.getItem('notes') || 'null')
@@ -15,6 +15,6 @@ const restore = () => {
 
 export default {
   update,
-  updateNow: cacheNotes,
+  updateNow,
   restore
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-item" :class="{active}" @click="select">
-    <div class="si-title">{{title | shorten}}</div>
-    <div class="si-description">{{text | shorten}}</div>
+    <div class="si-title">{{title}}</div>
+    <div class="si-description">{{text}}</div>
     <div class="si-time">
       <i v-if="params.isStarred" class="ion-ios-star" style="color: #FFDD67;"></i>
       <span>{{modifiedAt}}</span>
@@ -26,10 +26,10 @@ export default {
       return this.selectedNoteId === this.params.id
     },
     title () {
-      return this.params.title || '...'
+      return (this.params.title || '...').substr(0, 60)
     },
     text () {
-      return this.params.text || '...'
+      return (this.params.text || '...').substr(0, 100)
     },
     modifiedAt () {
       return moment(this.params.modifiedAt).fromNow()
@@ -72,7 +72,7 @@ export default {
 
     .si-title {
       padding: 5px;
-      padding-top: 2px;
+      padding-top: 6px;
       padding-bottom: 0;
       font-size: 14px;
       font-weight: 600;

@@ -64,16 +64,7 @@ export default {
   }
 }
 </script>
-<style>
-  @keyframes example {
-    from {
-      background-color: red;
-    }
-    to {
-      background-color: yellow;
-    }
-  }
-
+<style lang="scss">
   .icon {
     user-select: none;
   }

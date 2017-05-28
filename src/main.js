@@ -1,15 +1,18 @@
 import Vue    from 'vue'
 import Modal  from 'vue-js-modal'
+import Tooltip from 'v-tooltip'
+
 import App    from './App'
 import store  from './store'
 import router from './router'
 import './filters'
 import 'font-awesome/scss/font-awesome.scss'
 
-import VueJsDropdown from './components/Dropdown/index'
+import Dropdown from './components/Dropdown/index'
 
 Vue.use(Modal)
-Vue.use(VueJsDropdown)
+Vue.use(Tooltip)
+Vue.use(Dropdown)
 
 Vue.config.devtools = true
 Vue.config.performance = true
