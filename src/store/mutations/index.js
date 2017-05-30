@@ -20,5 +20,13 @@ export default {
     state.sidebarVisible = !state.sidebarVisible
   },
 
+  SET_CONFIG (state, config) {
+    state.config = config || {}
+  },
+
+  SET_SIDEBAR_SEARCH (state, value) {
+    state.sidebarSearch = value
+  },
+
   ...notes
 }

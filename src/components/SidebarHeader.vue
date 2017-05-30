@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-header">
     <div class="sidebar-header-content">
-      <icon name="ion-ios-search" disabled/>
+      <icon name="ion-ios-search"/>
       <icon name="ion-ios-paper-outline" disabled/>
 
       <template v-if="isMobile">
@@ -10,7 +10,7 @@
            @click="createEmptyNote"/>
       </template>
       <template v-else>
-        <input class="sh-input" type="text">
+        <input class="sh-input" type="text" placeholder="Search" @input="inputSearch">
       </template>
     </div>
   </div>
@@ -37,6 +37,9 @@ export default {
   methods: {
     createEmptyNote () {
       this.$store.commit('NOTE_CREATE')
+    },
+    inputSearch (event) {
+      this.$store.commit('SET_SIDEBAR_SEARCH', event.target.value)
     }
   }
 }

@@ -10,7 +10,6 @@
   </div>
 </template>
 <script>
-// import { transformText }        from '../modules/transform'
 import { mapState, mapGetters } from 'vuex'
 import Toolbar                  from './Toolbar'
 import EditorText               from './EditorText'
@@ -24,20 +23,6 @@ export default {
     EditorTitle
   },
   methods: {
-    change (event) {
-      if (this.selected && this.selected.text !== event.value) {
-        this.$store.commit('NOTE_SET_TEXT', {
-          id: this.selectedNoteId,
-          text: event.value || ''
-        })
-      }
-
-      this.$store.commit('NOTE_SET_MARKS', {
-        id: this.selectedNoteId,
-        marks: event.marks || []
-      })
-    },
-
     ready () {
       if (this.notes.length > 0) {
         this.$store.commit('SET_SELECTED_NOTE', this.notes[0].id)

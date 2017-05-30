@@ -43,6 +43,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+$border-color: #eee;
+$background-selected-color: #f6f6f6;
+$date-color: #C2C7CC;
+
   .sidebar-item {
     position: relative;
 
@@ -52,17 +56,17 @@ export default {
     padding-top: 15px;
     cursor: pointer;
     user-select: none;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $border-color;
 
     &:first-child {
-      border-top: 1px solid white;
+      border-top: 1px solid transparent;
     }
 
     &.active {
-      background: #f6f6f6;
+      background: $background-selected-color;
 
       &:first-child {
-        border-top: 1px solid #eee;
+        border-top: 1px solid $border-color;
       }
     }
 
@@ -77,7 +81,6 @@ export default {
       font-size: 14px;
       font-weight: 600;
       font-family: 'Cardo', Helvetica, Arial, serif;
-
     }
 
     .si-description {
@@ -95,9 +98,7 @@ export default {
     .si-time {
       top: 0;
       right: 0;
-      // width: 100%;
-      // opacity: 0.5;
-      color: #C2C7CC;
+      color: $date-color;
       padding: 5px;
       padding-bottom: 0;
       padding-left: 0;

@@ -5,11 +5,13 @@
     </div>
     <template v-if="!empty">
       <transition-group name="list" tag="div">
-        <sidebar-item v-for="item in filtered" :key="item.id" :params="item"/>
+        <sidebar-item v-for="item in filtered"
+                      :key="item.id"
+                      :params="item"/>
       </transition-group>
     </template>
     <template v-else>
-      <div style="padding: 20px; text-align: center; font-size: 12px; opacity: 0.3;">
+      <div class="sidebar-empty">
       No notes..
       </div>
     </template>
@@ -21,14 +23,10 @@ import SidebarHeader from './SidebarHeader'
 import SidebarItem   from './SidebarItem'
 
 export default {
-  name: '',
+  name: 'Sidebar',
   components: {
     SidebarHeader,
     SidebarItem
-  },
-  data () {
-    return {
-    }
   },
   computed: {
     ...mapState([
@@ -63,20 +61,27 @@ export default {
         return f1 > f2 ? -1 : 1
       })
     }
-  },
-  methods: {
   }
 }
 </script>
 <style lang="scss">
+$border-color: #eee;
+
   .sidebar {
     position: fixed;
     width: 210px;
     height: 100vh;
-    border-right: 1px solid #eee;
+    border-right: 1px solid $border-color;
     background: white;
 
     z-index: 20;
+  }
+
+  .sidebar-empty {
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.3;
   }
 
   .add-note-button {

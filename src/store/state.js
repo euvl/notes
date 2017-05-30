@@ -7,13 +7,12 @@ export default {
   sidebarSearch: '',
   sidebarVisible: window.innerWidth > MOBILE_WINDOW_WIDTH,
   selectedNoteId: null,
-/*
-  sidebar: {
-    visible: true,
-    sorting: 'createdAt',
-    search: '',
+  config: {
+    useGenerators: true,
+    fontSize: 1,
+    fontFamily: 0
   },
-*/
+
   toolbar: {
     visible: false,
     x: 0,

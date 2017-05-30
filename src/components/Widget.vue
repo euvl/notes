@@ -1,5 +1,5 @@
 <template>
-  <div :class="['widget', sidebarVisible && 'sidebar-is-visible']">
+  <div :class="className">
     <sidebar v-if="sidebarVisible" />
     <div class="editor-wrapper">
       <editor />
@@ -27,11 +27,35 @@ export default {
     }
   },
   computed: {
-    ...mapState(['notes', 'sidebarVisible'])
+    ...mapState(['notes', 'sidebarVisible', 'config']),
+    className () {
+      let { config, sidebarVisible } = this
+
+      return [
+        'widget',
+        `font-size-${config.fontSize}`,
+        `font-family-${config.fontFamily}`,
+        {
+          'sidebar-is-visible': sidebarVisible
+        }
+      ]
+    }
   }
 }
 </script>
 <style lang="scss">
+$font-sizes: 13px, 16px, 20px;
+
+@each $font-size in $font-sizes {
+  $index: index($font-sizes, $font-size) - 1;
+
+  .font-size-#{$index} {
+    .CodeMirror {
+      font-size: $font-size !important;
+    }
+  }
+}
+
 .widget {
   display: block;
 

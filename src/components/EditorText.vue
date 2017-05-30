@@ -2,9 +2,9 @@
   <div class="text-editor" @click="focusEditor">
     <text-editor-toolbar
       :params="toolbar"
-      @color="highlight"
-      @underline="underline"
-      @bold="bolden"
+      @color="addMark('marker-yellow')"
+      @underline="addMark('marker-underline')"
+      @bold="addMark('marker-bold')"
       @clean="clean"/>
     <div class="editable-wrapper" @click.stop>
       <textarea class="editable"
@@ -37,8 +37,6 @@ export default {
   watch: {
     selectedNoteId: {
       handler (id) {
-        // this.value = id ? this.selected.text : ''
-        // console.log(this.editor)
         if (this.editor && this.selected) {
           let { text, marks } = this.selected
 
@@ -62,39 +60,8 @@ export default {
       immediate: true
     }
   },
-//  watch: {
-/*
-text: {
-      handler: function (value) {
-        this.value = value
-        this.editor.setValue(this.value)
-
-        console.log(this.selected.marks)
-
-        let marks = this.selected.marks
-
-        if (marks) {
-          marks.forEach(mark => {
-            let { from, to, className } = mark
-
-            this.editor.markText(from, to, {
-              className,
-              addToHistory: false
-            })
-          })
-        }
-
-        this.$nextTick(() => {
-          this.editor.refresh()
-          this.editor.clearHistory()
-        })
-      }
-*/
-//  }
-//  },
   data () {
     return {
-    //  value: '',
       toolbar: {
         isVisible: false,
         position: {
@@ -107,7 +74,7 @@ text: {
   },
   computed: {
     ...mapGetters(['selected']),
-    ...mapState(['selectedNoteId'])
+    ...mapState(['selectedNoteId', 'config'])
   },
   mounted () {
     const editor = CodeMirror.fromTextArea(this.$refs.editable, {
@@ -131,18 +98,20 @@ text: {
         let posFrom = editor.charCoords(from)
         let posTo = editor.charCoords(to)
 
-        let top = posFrom.top
-        let left = 0
-
+        let position = {
+          top: posFrom.top,
+          left: 0
+        }
         if (from.line !== to.line) {
           let rect = el.getBoundingClientRect()
-          left = rect.left + 0.5 * rect.width
+          position.left = rect.left + 0.5 * rect.width
         } else {
-          left = Math.round(posFrom.left + (posTo.left - posFrom.left) / 2)
+          position.left =
+            Math.round(posFrom.left + (posTo.left - posFrom.left) / 2)
         }
 
         this.toolbar.isVisible = true
-        this.$set(this.toolbar, 'position', { left, top })
+        this.$set(this.toolbar, 'position', position)
       })
 
       event.preventDefault()
@@ -152,48 +121,29 @@ text: {
     editor.on('mousedown', (event) => {
       document.addEventListener('mouseup', mouseup)
     })
-    /*
-    // editor.on('change', (event) => {
-    //   console.log(event)
-    // })
-    */
 
     editor.on('blur', this.hideToolbar)
 
     editor.on('keyup', (event) => {
-      let cursor = editor.getCursor()
-      let lineText = editor.getLine(cursor.line)
-      let nextCursorPos = cursor.ch
+      if (this.config.useGenerators) {
+        let { line } = editor.getCursor()
+        let lineText = editor.getLine(line)
 
-      let transformedText = transformText(lineText, (event) => {
-        nextCursorPos = event.position + event.replacement.length
-      })
+        transformText(lineText, event => {
+          let { replacement, value, position } = event
+          let length = value.length
+          let start = { line, ch: position }
+          let end = { line, ch: start.ch + length }
 
-      if (lineText !== transformedText) {
-        var start = { line: cursor.line, ch: 0 }
-        var end = { line: cursor.line, ch: lineText.length }
-
-        editor.replaceRange(transformedText, start, end)
-        editor.setCursor({ line: cursor.line, ch: nextCursorPos })
+          editor.replaceRange(replacement, start, end)
+          editor.setCursor({ line, ch: start.ch + replacement.length })
+        })
       }
 
       this.hideToolbar()
     })
 
     /*
-    editor.getSelectedRange = () => {
-      return {
-        from: editor.getCursor('from'),
-        to: editor.getCursor('to')
-      }
-    }
-
-    editor.markSelectedText = (options) => {
-      const { from, to } = editor.getSelectedRange()
-      editor.markText(from, to, options)
-      return { from, to }
-    }
-
     editor.setOption('extraKeys', {
       'Ctrl-N': this.highlight,
       'Alt-B': this.bolden,
@@ -206,14 +156,10 @@ text: {
         return
       }
 
-      let value = this.editor.getValue()
-      let marks = this.getCurrentNoteMarks()
-
-      this.commit({ value, marks })
+      this.commit()
     })
 
     this.editor = editor
-
     this.$emit('ready', { editor })
   },
   methods: {
@@ -229,11 +175,27 @@ text: {
       const { from, to } = this.getSelectedRange()
       const marks = this.editor.findMarks(from, to)
 
-      marks.forEach(mark => { mark.clear() })
+      marks.forEach(mark => {
+        let range = mark.find()
+        let selected = this.getSelectedRange()
+
+        let cf = this.comparePositions(range.from, selected.from)
+        let ct = this.comparePositions(range.to, selected.to)
+
+        console.log(cf, ct)
+
+        mark.clear()
+      })
+
+      this.commit()
+    },
+
+    comparePositions (a, b) {
+      return a.line !== b.line ? (a.line - b.line) : (a.ch - b.ch)
     },
 
     getSelectedRange () {
-      let { editor } = this
+      const { editor } = this
 
       return {
         from: editor.getCursor('from'),
@@ -257,33 +219,16 @@ text: {
 
     addMark (className) {
       this.markSelectedText({ className, addToHistory: true })
+      this.commit()
+    },
 
-      let value = this.editor.getValue()
+    commit () {
+      let text = this.editor.getValue()
       let marks = this.getCurrentNoteMarks()
-
-      this.commit({ value, marks })
-    },
-
-    underline () {
-      this.addMark('marker-underline')
-    },
-
-    bolden () {
-      this.addMark('marker-bold')
-    },
-
-    highlight () {
-      this.addMark('marker-yellow')
-    },
-
-    commit ({ value, marks }) {
       let id = this.selectedNoteId
 
-      if (this.selected && this.selected.value !== value) {
-        this.$store.commit('NOTE_SET_TEXT', {
-          id,
-          text: value
-        })
+      if (this.selected && this.selected.value !== text) {
+        this.$store.commit('NOTE_SET_TEXT', { id, text })
       }
 
       this.$store.commit('NOTE_SET_MARKS', { id, marks })
@@ -359,7 +304,7 @@ input {
 }
 
 .marker-yellow {
-  background: #ff7;
+  background: rgba(255, 255, 119, 0.8);
 }
 
 .marker-underline {

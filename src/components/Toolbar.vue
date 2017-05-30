@@ -19,7 +19,6 @@
 import { mapGetters } from 'vuex'
 import { download }   from '../util'
 import windowSize     from '../mixins/windowSize'
-
 import Icon           from './Icon'
 
 export default {

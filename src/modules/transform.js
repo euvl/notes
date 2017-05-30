@@ -52,11 +52,12 @@ let list = [
 
 export const transformText = (text, callback) => {
   list.forEach(converter => {
-    text = text.replace(converter.regexp, (value, position) => {
+    text = text.replace(converter.regexp, function (value, position) {
       let replacement = converter.fn(value, position)
 
       if (callback) {
         callback({
+          args: arguments,
           value,
           position,
           replacement,
