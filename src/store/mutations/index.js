@@ -1,6 +1,4 @@
 import notes    from './notes'
-// import marker   from './marker'
-// import Vue      from 'vue'
 import session  from '@/modules/session'
 
 export default {
@@ -20,8 +18,8 @@ export default {
     state.sidebarVisible = !state.sidebarVisible
   },
 
-  SET_CONFIG (state, config) {
-    state.config = config || {}
+  SET_CONFIG (state, config = {}) {
+    state.config = { ...config }
   },
 
   SET_SIDEBAR_SEARCH (state, value) {

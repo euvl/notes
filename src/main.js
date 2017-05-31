@@ -1,14 +1,17 @@
-import Vue    from 'vue'
-import Modal  from 'vue-js-modal'
-import Tooltip from 'v-tooltip'
+import Vue      from 'vue'
+import Modal    from 'vue-js-modal'
+import Tooltip  from 'v-tooltip'
+import Dropdown from './components/Dropdown/index'
+import Icon     from './components/Icon'
 
-import App    from './App'
-import store  from './store'
-import router from './router'
+import App      from './App'
+import store    from './store'
+import router   from './router'
+
 import './filters'
 import 'font-awesome/scss/font-awesome.scss'
 
-import Dropdown from './components/Dropdown/index'
+Vue.component('Icon', Icon)
 
 Vue.use(Modal)
 Vue.use(Tooltip)

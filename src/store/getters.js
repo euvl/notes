@@ -1,8 +1,8 @@
-import util from '../util'
+import _ from 'lodash'
 
 export default {
   selected (state) {
-    return util.one(state.notes, state.selectedNoteId) || null
+    return _.find(state.notes, { id: state.selectedNoteId }) || null
   },
 
   selectedIndex (state) {

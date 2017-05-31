@@ -5,16 +5,16 @@
          @mousedown.stop.prevent
          :style="style">
       <div class="tet-btn" @click="$emit('bold', $event)">
-        <i class="fa fa-fw fa-bold"></i>
+        <icon name="fa-bold"/>
       </div>
       <div class="tet-btn" @click="$emit('underline', $event)">
-        <i class="fa fa-fw fa-underline"></i>
+        <icon name="fa-underline"/>
       </div>
       <div class="tet-btn" @click="$emit('color', '#FFDD67', $event)">
-        <i class="fa fa-fw fa-square" style="color: #FFDD67;"></i>
+        <icon name="fa-square" color="#FFDD67"/>
       </div>
       <div class="tet-btn" @click="$emit('clean')">
-        <i class="fa fa-fw fa-remove"></i>
+        <icon name="fa-remove"/>
       </div>
     </div>
   </transition>
@@ -39,11 +39,7 @@ export default {
 
 $button-count: 4;
 
-.slide-fade-enter-active {
-//  transition: all .3s ease;
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for <2.1.8 */ {
+.slide-fade-enter, .slide-fade-leave-to {
   transform: translateY(10px) scale(0.8);
   opacity: 0;
 }
@@ -63,12 +59,10 @@ $button-count: 4;
   color: #333;
   background-color: white;
   box-shadow: 0 5px 10px 2px rgba(0, 0, 0, .05);
-
   font-size: 0;
 
   .tet-btn {
     display: inline-block;
-    //box-sizing: border-box;
     height: 40px;
     width: 40px;
     text-align: center;

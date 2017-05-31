@@ -1,10 +1,12 @@
 import Vue            from 'vue'
-import util           from '@/util'
+import _              from 'lodash'
 import { createNote } from '@/factories/note'
 
+const findById = (collection, id) => _.find(collection, { id }) || null
+
 export default {
-  NOTE_SET_TEXT (state, {id, text}) {
-    var note = util.one(state.notes, id)
+  NOTE_SET_TEXT (state, { id, text }) {
+    var note = findById(state.notes, id)
 
     if (note) {
       Vue.set(note, 'text', text)
@@ -12,8 +14,8 @@ export default {
     }
   },
 
-  NOTE_SET_TITLE (state, {id, title}) {
-    var note = util.one(state.notes, id)
+  NOTE_SET_TITLE (state, { id, title }) {
+    var note = findById(state.notes, id)
 
     if (note) {
       Vue.set(note, 'title', title)
@@ -21,8 +23,8 @@ export default {
     }
   },
 
-  NOTE_SET_MARKS (state, {id, marks}) {
-    var note = util.one(state.notes, id)
+  NOTE_SET_MARKS (state, { id, marks }) {
+    var note = findById(state.notes, id)
 
     if (note) {
       Vue.set(note, 'marks', marks)
@@ -30,7 +32,7 @@ export default {
   },
 
   NOTE_TOGGLE_STAR (state, id) {
-    var note = util.one(state.notes, id)
+    var note = findById(state.notes, id)
 
     if (note) {
       Vue.set(note, 'isStarred', !note.isStarred)
@@ -39,28 +41,26 @@ export default {
 
   NOTE_CREATE (state) {
     var note = createNote()
+
     state.notes.push(note)
-    Vue.set(state, 'selectedNoteId', note.id)
+    state.selectedNoteId = note.id
   },
 
   NOTE_REMOVE (state) {
     let { notes, selectedNoteId } = state
-    let nextId = null
-    let cleaned = []
+    let index = _.findIndex(notes, {id: selectedNoteId})
 
-    notes.forEach((note, i) => {
-      if (note.id === selectedNoteId) {
-        if (notes.length > 1) {
-          nextId = notes[i + (i === 0 ? 1 : -1)].id
-        }
+    if (index !== -1) {
+      notes.splice(index, 1)
+
+      if (notes.length > 0) {
+        let nextIndex = Math.max(index - 1, 0)
+        let nextId = notes[nextIndex].id
+
+        state.selectedNoteId = nextId
       } else {
-        cleaned.push(note)
+        state.selectedNoteId = null
       }
-    })
-
-    Vue.set(state, 'notes', cleaned)
-    Vue.set(state, 'selectedNoteId', nextId)
-    // TODO: somehow call another mutation SET_SELECTED_NOTE
-    // mb it shoud be separated into action ???
+    }
   }
 }
