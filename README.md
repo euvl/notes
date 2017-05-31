@@ -1,21 +1,15 @@
-# vue-notes-3
+# Notes
 
-> A Vue.js project
+##### Simple, clean and  notes editor
+##### **No** registration, syncs, markdown and other bullshit. Just a notes editor.
+##### All data is stored in browser's localStorage and belongs to you
+
+![](https://cloud.githubusercontent.com/assets/1577802/26628672/e837a1be-45f6-11e7-9d5f-2df9fe693884.png)
+
 
 ## Build Setup
 
 ``` bash
-# install dependencies
 npm install
-
-# serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
