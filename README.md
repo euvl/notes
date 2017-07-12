@@ -13,3 +13,6 @@ npm install
 # Run the app
 npm run dev
 ```
+
+P.S. This is a very first version so lots of bugs might occur. Please create an issue if you found bugs or have ideas how this editor can be improved.
+
