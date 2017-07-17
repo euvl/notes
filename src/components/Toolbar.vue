@@ -1,17 +1,24 @@
 <template>
   <div class="editor-toolbar">
     <div class="et-left">
-      <icon name="ion-ios-keypad-outline" @click="toggleSidebar"/>
+      <icon name="ion-ios-keypad-outline"
+            @click="toggleSidebar"/>
       <template v-if="!isMobile">
-        <icon name="ion-ios-compose-outline" @click="createEmptyNote"/>
+        <icon name="ion-ios-compose-outline"
+              @click="createEmptyNote"/>
       </template>
-      <icon name="ion-ios-bookmarks-outline"/>
+      <icon name="ion-ios-bookmarks-outline"
+            @click="showEditorSettings"/>
     </div>
     <div class="et-right">
-      <icon :name="star" @click="toggleStar"/>
-      <icon name="icon ion-ios-download-outline" @click="downloadTxt"/>
-      <icon name="icon ion-ios-gear-outline" @click="showSettings"/>
-      <icon name="icon ion-ios-trash-outline" @click="removeNote"/>
+      <icon :name="star"
+            @click="toggleStar"/>
+      <icon name="icon ion-ios-download-outline"
+            @click="downloadTxt"/>
+      <icon name="icon ion-ios-gear-outline"
+            @click="showSettings"/>
+      <icon name="icon ion-ios-trash-outline"
+            @click="removeNote"/>
     </div>
   </div>
 </template>
@@ -51,6 +58,10 @@ export default {
 
     createEmptyNote () {
       this.$store.commit('NOTE_CREATE')
+    },
+
+    showEditorSettings () {
+      this.$modal.show('editor-settings')
     },
 
     showSettings () {

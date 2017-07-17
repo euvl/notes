@@ -9,8 +9,9 @@ export default {
   selectedNoteId: null,
   config: {
     useGenerators: true,
-    fontSize: 1,
-    fontFamily: 0
+    mode: 0,
+    fontSize: 16,
+    fontFamily: 'Cardo'
   },
 
   toolbar: {

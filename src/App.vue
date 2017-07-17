@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <settings />
-    <router-view></router-view>
+    <settings/>
+    <editor-settings/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Settings from './modals/Settings'
+import EditorSettings from './modals/EditorSettings'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    Settings
+    Settings,
+    EditorSettings
   },
   created () {
     this.$store.commit('INITIALIZE')
