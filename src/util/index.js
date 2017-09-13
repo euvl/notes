@@ -1,6 +1,4 @@
-export const hex = (value) => {
-  return value.toString(36)
-}
+export const hex = (value) => value.toString(36)
 
 export const ID = (() => {
   let counter = 0
@@ -9,8 +7,9 @@ export const ID = (() => {
 
 export const download = (filename, text) => {
   var element = document.createElement('a')
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
-    encodeURIComponent(text))
+  var href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text)
+
+  element.setAttribute('href', href)
   element.setAttribute('download', filename)
   element.style.display = 'none'
 

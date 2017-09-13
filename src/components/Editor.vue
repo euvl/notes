@@ -60,24 +60,6 @@ export default {
       outline: none;
     }
 
-    .editor-toolbar {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      font-size: 20px;
-      padding-bottom: 10px;
-
-      .et-left {
-        text-align: left;
-        flex: 1;
-      }
-
-      .et-right {
-        text-align: right;
-        flex: 1;
-      }
-    }
-
     .editor-container {
       padding: 0;
       padding-top: 10px;

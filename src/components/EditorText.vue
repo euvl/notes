@@ -17,12 +17,16 @@
 </template>
 <script>
 
-import TextEditorToolbar from './TextEditorToolbar'
-import CodeMirror        from 'codemirror'
-import { transformText } from '@/modules/transform'
-import { mapGetters, mapState }    from 'vuex'
+import TextEditorToolbar        from './TextEditorToolbar'
+import CodeMirror               from 'codemirror'
+import CodeMirrorMode           from '@/codemirror/mode'
+import { transformText }        from '@/modules/transform'
+import { mapGetters, mapState } from 'vuex'
+
 import '../../node_modules/codemirror/addon/display/placeholder.js'
 import '../../node_modules/codemirror/lib/codemirror.css'
+
+console.log(CodeMirrorMode)
 
 export default {
   name: 'TextEditor',
@@ -79,6 +83,7 @@ export default {
   mounted () {
     const editor = CodeMirror.fromTextArea(this.$refs.editable, {
       value: '',
+      mode: 'enhanced-note',
       styleSelectedText: true,
       lineWrapping: true,
       dragDrop: false,

@@ -1,29 +1,46 @@
 <template>
   <div class="editor-toolbar">
-    <div class="et-left">
-      <icon name="ion-ios-keypad-outline"
+    <div>
+      <icon :name="menu"
             @click="toggleSidebar"/>
       <template v-if="!isMobile">
         <icon name="ion-ios-compose-outline"
               @click="createEmptyNote"/>
       </template>
       <icon name="ion-ios-bookmarks-outline"
-            @click="showEditorSettings"/>
+            v-popover:foo />
+
+      <popover name="foo">
+        <div style="font-size: 14px;">
+          <div>Font:</div>
+          <div>Size:</div>
+          <div>Mode:</div>
+        </div>
+      </popover>
     </div>
-    <div class="et-right">
+    <div>
+      <span style="font-size: 12px; font-family: 'Cardo', serif;">
+        10 words
+      </span>
+    </div>
+    <div>
       <icon :name="star"
             @click="toggleStar"/>
       <icon name="icon ion-ios-download-outline"
             @click="downloadTxt"/>
+
       <icon name="icon ion-ios-gear-outline"
-            @click="showSettings"/>
+            disabled/>
+      <!--
+      <icon name="icon ion-ios-cloudy-night-outline"/>
+      -->
       <icon name="icon ion-ios-trash-outline"
             @click="removeNote"/>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { download }   from '../util'
 import windowSize     from '../mixins/windowSize'
 import Icon           from './Icon'
@@ -38,9 +55,18 @@ export default {
   },
   computed: {
     ...mapGetters(['selected']),
+    ...mapState(['sidebarVisible']),
+
     star () {
-      return 'ion-ios-star' +
-        (this.selected && this.selected.isStarred ? '' : '-outline')
+      return this.selected && this.selected.isStarred
+        ? 'ion-ios-star'
+        : 'ion-ios-star-outline'
+    },
+
+    menu () {
+      return !this.sidebarVisible
+        ? 'ion-ios-keypad'
+        : 'ion-ios-keypad-outline'
     }
   },
   methods: {
@@ -60,14 +86,6 @@ export default {
       this.$store.commit('NOTE_CREATE')
     },
 
-    showEditorSettings () {
-      this.$modal.show('editor-settings')
-    },
-
-    showSettings () {
-      this.$modal.show('settings')
-    },
-
     removeNote () {
       this.$store.commit('NOTE_REMOVE')
     }
@@ -81,5 +99,32 @@ export default {
 
   .icon.ion-ios-star {
     color: #FFDD67;
+  }
+
+  .editor-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 100%;
+    font-size: 20px;
+    padding-bottom: 10px;
+
+    & > div {
+      flex: 0 0 30%;
+      text-align: center;
+
+      &:nth-child(1) {
+        text-align: left;
+      }
+
+      &:nth-child(2) {
+        text-align: center;
+      }
+
+      &:nth-child(3) {
+        text-align: right;
+      }
+    }
   }
 </style>

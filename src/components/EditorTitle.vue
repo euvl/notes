@@ -19,7 +19,9 @@ export default {
   watch: {
     selectedNoteId: {
       handler (id) {
-        this.value = id ? this.selected.title : ''
+        this.value = id
+          ? this.selected.title
+          : ''
       },
       immediate: true
     }

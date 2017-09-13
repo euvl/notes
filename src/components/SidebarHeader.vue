@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-header">
     <div class="sidebar-header-content">
-      <icon name="ion-ios-search"/>
+      <icon name="ion-ios-search" disabled/>
       <icon name="ion-ios-paper-outline" disabled/>
 
       <template v-if="isMobile">

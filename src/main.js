@@ -1,7 +1,7 @@
 import Vue      from 'vue'
 import Modal    from 'vue-js-modal'
-import Tooltip  from 'v-tooltip'
 import Dropdown from './components/Dropdown/index'
+import Popover  from 'vue-js-popover'
 import Icon     from './components/Icon'
 
 import App      from './App'
@@ -13,8 +13,8 @@ import 'font-awesome/scss/font-awesome.scss'
 
 Vue.component('Icon', Icon)
 
+Vue.use(Popover)
 Vue.use(Modal)
-Vue.use(Tooltip)
 Vue.use(Dropdown)
 
 Vue.config.devtools = true
