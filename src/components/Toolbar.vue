@@ -30,9 +30,10 @@
 
       <icon name="icon ion-ios-gear-outline"
             disabled/>
-      <!--
-      <icon name="icon ion-ios-cloudy-night-outline"/>
-      -->
+
+      <icon name="icon ion-ios-timer-outline"
+            @click="toggleNightMode"/>
+
       <icon name="icon ion-ios-trash-outline"
             @click="removeNote"/>
     </div>
@@ -79,6 +80,10 @@ export default {
 
     toggleSidebar () {
       this.$store.commit('TOGGLE_SIDEBAR')
+    },
+
+    toggleNightMode () {
+      this.$store.commit('TOGGLE_NIGHT_MODE')
     },
 
     createEmptyNote () {

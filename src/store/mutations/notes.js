@@ -1,10 +1,20 @@
 import Vue            from 'vue'
 import _              from 'lodash'
 import { createNote } from '@/factories/note'
+import session  from '@/modules/session'
 
-const findById = (collection, id) => _.find(collection, { id }) || null
+const findById = (collection, id) =>
+  _.find(collection, { id }) || null
 
 export default {
+  INITIALIZE (state) {
+    let notes = session.restore()
+
+    if (notes) {
+      state.notes = notes
+    }
+  },
+
   NOTE_SET_TEXT (state, { id, text }) {
     var note = findById(state.notes, id)
 

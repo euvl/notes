@@ -7,9 +7,10 @@ export default {
   sidebarSearch: '',
   sidebarVisible: window.innerWidth > MOBILE_WINDOW_WIDTH,
   selectedNoteId: null,
+
   config: {
     useGenerators: true,
-    mode: 0,
+    mode: 'day',
     fontSize: 16,
     fontFamily: 'cardo'
   },
