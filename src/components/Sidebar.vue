@@ -72,8 +72,6 @@ $border-color: #eee;
     width: 210px;
     height: 100vh;
     border-right: 1px solid $border-color;
-    background: white;
-
     z-index: 20;
   }
 

@@ -26,10 +26,12 @@
       <icon :name="star"
             @click="toggleStar"/>
       <icon name="icon ion-ios-download-outline"
-            @click="downloadTxt"/>
+            @click="download"/>
 
+      <!--
       <icon name="icon ion-ios-gear-outline"
             disabled/>
+      -->
 
       <icon name="icon ion-ios-timer-outline"
             @click="toggleNightMode"/>
@@ -70,7 +72,7 @@ export default {
     }
   },
   methods: {
-    downloadTxt () {
+    download () {
       download(this.selected.title + '.txt', this.selected.text)
     },
 

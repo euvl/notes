@@ -86,8 +86,9 @@ export default {
       mode: 'enhanced-note',
       styleSelectedText: true,
       lineWrapping: true,
-      dragDrop: false,
-      gutters: ['breakpoints', 'CodeMirror-linenumbers']
+      dragDrop: false
+    //  ,
+    //  gutters: ['breakpoints', 'CodeMirror-linenumbers']
     })
 
     const mouseup = (event) => {
@@ -272,6 +273,7 @@ input {
 .CodeMirror.cm-s-default {
   width: 100%;
   min-height: 40px;
+  background-color: transparent;
   font-family: 'Cardo', Georgia, serif;
   font-size: 16px;
   line-height: 1.5;

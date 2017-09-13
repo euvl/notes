@@ -32,12 +32,13 @@ export default {
     ]),
     className () {
       let { sidebarVisible, config } = this
-      let { fontSize, fontFamily } = config
+      let { fontSize, fontFamily, mode } = config
 
       return [
         'widget',
         `font-size-${fontSize}`,
         `font-family-${fontFamily}`,
+        `mode-${mode}`,
         { 'sidebar-is-visible': sidebarVisible }
       ]
     }
@@ -45,6 +46,7 @@ export default {
 }
 </script>
 <style lang="scss">
+
 $font-sizes: 13px, 16px, 20px;
 
 @each $font-size in $font-sizes {
@@ -55,6 +57,15 @@ $font-sizes: 13px, 16px, 20px;
       font-size: $font-size !important;
     }
   }
+}
+
+.mode-day {
+
+}
+
+.mode-night {
+  background: #EFCB8B;
+  color: #3D4350;
 }
 
 .widget {

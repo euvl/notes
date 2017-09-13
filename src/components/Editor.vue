@@ -51,6 +51,7 @@ export default {
     height: 100vh;
 
     .title {
+      background-color: transparent;
       box-sizing: border-box;
       width: 100%;
       font-weight: 600;
@@ -61,12 +62,13 @@ export default {
 
       padding: 0;
       padding-bottom: 10px;
-      padding-left: 34px;
+      padding-left: 19px;
     }
 
     .content {
       height: 100%;
       outline: none;
+      padding: 0 15px;
     }
 
     .editor-container {
