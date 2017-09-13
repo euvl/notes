@@ -32,6 +32,15 @@ export default {
   computed: {
     ...mapState(['notes', 'selectedNoteId', 'notes']),
     ...mapGetters(['selected'])
+  },
+  mounted () {
+    window.addEventListener('blur', () => {
+      document.title = this.selected.title
+    })
+
+    window.addEventListener('focus', () => {
+      document.title = 'Notes'
+    })
   }
 }
 </script>

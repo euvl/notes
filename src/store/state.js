@@ -11,7 +11,7 @@ export default {
     useGenerators: true,
     mode: 0,
     fontSize: 16,
-    fontFamily: 'Cardo'
+    fontFamily: 'cardo'
   },
 
   toolbar: {

@@ -34,9 +34,19 @@ export default {
   }
 }
 </script>
-<style>
-  .icon.disabled {
-    pointer-events: none;
-    opacity: 0.2;
+<style lang="scss">
+  .icon {
+    font-size: 20px;
+
+    *.disabled {
+      pointer-events: none;
+      opacity: 0.2;
+    }
+
+    &::before {
+      cursor: pointer;
+      min-width: 30px;
+      text-align: center;
+    }
   }
 </style>

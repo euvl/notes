@@ -5,6 +5,11 @@ export const ID = (() => {
   return () => hex(counter++) + hex(Date.now())
 })()
 
+export const getWordCount = (text) => {
+  const matches = text.match(/\S+/g)
+  return matches ? matches.length : 0
+}
+
 export const download = (filename, text) => {
   var element = document.createElement('a')
   var href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text)

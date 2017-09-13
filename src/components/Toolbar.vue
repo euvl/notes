@@ -3,12 +3,11 @@
     <div>
       <icon :name="menu"
             @click="toggleSidebar"/>
-      <template v-if="!isMobile">
-        <icon name="ion-ios-compose-outline"
-              @click="createEmptyNote"/>
-      </template>
+      <icon name="ion-ios-compose-outline"
+            v-if="!isMobile"
+            @click="createEmptyNote"/>
       <icon name="ion-ios-bookmarks-outline"
-            v-popover:foo />
+            v-popover:foo/>
 
       <popover name="foo">
         <div style="font-size: 14px;">
@@ -19,7 +18,7 @@
       </popover>
     </div>
     <div>
-      <span style="font-size: 12px; font-family: 'Cardo', serif;">
+      <span class="word-count">
         10 words
       </span>
     </div>
@@ -99,6 +98,13 @@ export default {
 
   .icon.ion-ios-star {
     color: #FFDD67;
+  }
+
+  .word-count {
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Cardo', serif;
+    color: #b8b8b8;
   }
 
   .editor-toolbar {

@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Settings from './modals/Settings'
-import EditorSettings from './modals/EditorSettings'
+import Settings from './components/modals/Settings'
+import EditorSettings from './components/modals/EditorSettings'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
@@ -76,15 +76,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-.icon {
-  font-size: 20px;
-
-  &::before {
-    cursor: pointer;
-    min-width: 30px;
-    text-align: center;
-  }
 }
 </style>

@@ -27,14 +27,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(['notes', 'sidebarVisible', 'config']),
+    ...mapState([
+      'notes', 'sidebarVisible', 'config'
+    ]),
     className () {
       let { sidebarVisible, config } = this
+      let { fontSize, fontFamily } = config
 
       return [
         'widget',
-        'font-size-' + config.fontSize,
-        'font-family-' + config.fontFamily.toLowerCase(),
+        `font-size-${fontSize}`,
+        `font-family-${fontFamily}`,
         { 'sidebar-is-visible': sidebarVisible }
       ]
     }
