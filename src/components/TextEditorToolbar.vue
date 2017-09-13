@@ -49,6 +49,7 @@ $button-count: 4;
   position: absolute;
   transition: all 0.3s;
   z-index: 100;
+
   border: 1px solid #eee;
   border-top: 1px solid #f3f3f3;
 
@@ -68,7 +69,6 @@ $button-count: 4;
     text-align: center;
     line-height: 40px;
 
-    color: #333;
     cursor: pointer;
     font-size: 12px;
 

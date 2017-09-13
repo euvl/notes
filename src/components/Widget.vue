@@ -64,12 +64,44 @@ $font-sizes: 13px, 16px, 20px;
 }
 
 .mode-night {
-  background: #EFCB8B;
-  color: #3D4350;
+  background: #F9F3E9;
+  color: #5F3E2F;
+
+  .CodeMirror, .editor .title {
+    color: #5F3E2F;
+  }
+
+  .sidebar {
+    border-color: #E9E0D6;
+
+    .sidebar-item {
+      border-color: #E9E0D6 !important;
+
+      &.active {
+        background: #F5EBDE;
+      }
+
+      .si-time {
+        color: #5F3E2F;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .text-editor-toolbar {
+    background: #F9F3E9;
+    color: #5F3E2F;
+    border: 1px solid #F5EBDE;
+    box-shadow: 0 5px 10px 2px rgba(#5F3E2F, .2);
+  }
 }
 
 .widget {
   display: block;
+  display: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
 
   .editor-wrapper {
     width: 100%;
