@@ -7,6 +7,8 @@
 
 ## Development
 
+**Contributors are welcome ❤️ **
+
 ```bash
 # Install the dependencies
 npm install
